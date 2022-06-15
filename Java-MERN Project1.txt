@@ -32,4 +32,5 @@ o	passenger limit (flights cannot have more passengers on them/ booked than thei
 Due Friday July 8th
 
 Schema design:
+    Atlas connection mongodb+srv://root:<password>@cluster0.36shln6.mongodb.net/?retryWrites=true&w=majority
     https://www.mongodb.com/developer/products/mongodb/mongodb-schema-design-best-practices/

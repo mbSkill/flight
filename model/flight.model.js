@@ -10,4 +10,21 @@
  * passenger limit
  */
 
+/**
+ * This will be a one way flight btw
+ */
 
+const mongoose = require('mongoose');
+
+const flightSchema = new mongoose.Schema({
+    flightNumber: Number,
+    // *Date will hold Date/time info
+    departDate: Date,
+    arriveDate: Date,
+    departAirport: String,
+    arriveAirport: String,
+    occupantCapacity: Number,
+    occupantCount: Number,
+})
+
+module.exports = mongoose.model("flight", flightSchema);
