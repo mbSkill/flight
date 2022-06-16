@@ -1,13 +1,7 @@
-const express = require('express');
-const app = express();
 const mongoose = require('mongoose');
-require('dotenv').config();
 
-console.log(process.env.MONGO_URI);
-
-mongoose.connect(process.env.MONGO_URI);
-mongoose.connection.once('cool beans', ()=>{
-    console.log("double cool beans");
+mongoose.connect(process.env.MONGO_URI).then(e => {
+    console.log(e.STATES);
 });
 
 module.exports.db = mongoose;
