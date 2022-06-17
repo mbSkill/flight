@@ -5,8 +5,9 @@ const {db} = require('./expressConfig');
 const port = process.env.PORT|| 8090;
 
 
+app.use(express.json());
 
-require('./routes/routeList')(app);
+require('./routes')(app);
 
 
 app.listen(port);

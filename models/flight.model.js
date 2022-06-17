@@ -27,4 +27,4 @@ const flightSchema = new mongoose.Schema({
     occupantCount: Number,
 })
 
-module.exports = mongoose.model("flight", flightSchema);
+module.exports = mongoose.model("Flight", flightSchema,"Flights");
