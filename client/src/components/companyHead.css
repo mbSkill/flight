@@ -1,0 +1,14 @@
+/* Control header css in central location*/
+
+.ant-page-header-heading {
+justify-content: space-around;
+}
+
+.ant-page-header-heading-title {
+color:#fff;
+
+}
+
+.ant-page-header-heading-sub-title {
+color:#fff;
+}

@@ -6,13 +6,15 @@ const { findById } = require('../models/flight.model');
 router.get('/', async (req, res) =>{
     const flights = await findAllFlights();
     console.log('in flight router');
-    res.json(flights);
+    res.json(JSON.stringify(flights));
 });
 
-router.post('/addflight', (req, res) => {
+router.post('/addflight', async (req, res) => {
         let flight = req;
       
-      res.json(createFlight(flight.body));
+       let f = await createFlight(flight.body)
+       .then(res.json())    
+        .catch(err => res.json(err));
 
 });
 
@@ -21,7 +23,6 @@ router.post('/search', async (req, res) =>{
 });
 
 router.put('/update', async (req, res) => {
-    console.log(req.body);
     let flight = await updateFlight(req.body);
      res.json(flight);
 })

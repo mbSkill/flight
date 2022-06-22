@@ -1,16 +1,29 @@
 const Flight = require('../models/flight.model');
-const validateFlightInput = require( '../validate/validateFlightInput');
 /**
  * All flight routes travel through here. 
  * Keep very little logic operations here. 
  * 
  */
 
-const createFlight = (flight) => {
-
-    //  Flight.create(flight)
-    //     .catch(err => console.log(err));
-     return validateFlightInput(flight);
+const createFlight = async ({flightNumber, departDate, arriveDate, arriveAirport, departAirport, occupantCapacity, occupantCount}) => {
+   const flight = new Flight({
+    flightNumber,
+    departDate,
+    arriveDate,
+    departDate, 
+    arriveAirport,
+    departAirport, 
+    occupantCapacity, 
+    occupantCount
+   });
+   let error;
+   try{
+    await flight.save();
+    return  flight._id;
+    }catch(err){
+        throw {status:400, message: err};
+    }
+    
 }
 
 const updateFlight =  async (flight) => {

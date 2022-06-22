@@ -17,13 +17,13 @@
 const mongoose = require('mongoose');
 
 const flightSchema = new mongoose.Schema({
-    flightNumber: Number,
+    flightNumber: {type: Number, required: true, unique: true},
     // *Date will hold Date/time info
-    departDate: Date,
-    arriveDate: Date,
-    departAirport: String,
-    arriveAirport: String,
-    occupantCapacity: Number,
+    departDate: {type: Date,},
+    arriveDate: {type: Date,},
+    departAirport: {type: String, required: true},
+    arriveAirport: {type: String, required: true},
+    occupantCapacity: {type: Number, required: true},
     occupantCount: Number,
 })
 
