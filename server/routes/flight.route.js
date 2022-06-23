@@ -5,24 +5,16 @@ const { findById } = require('../models/flight.model');
 
 router.get('/', async (req, res) =>{
     const flights = await findAllFlights();
-    console.log('in flight router');
-    res.json(JSON.stringify(flights));
+    res.json(flights);
 });
 
-router.post('/addflight', async (req, res) => {
+router.post('/', async (req, res) => {
         let flight = req;
-      
-       let f = await createFlight(flight.body)
+        await createFlight(flight.body)
        .then(res.json())    
-        .catch(err => res.json(err));
-
+        .catch(err => console.log(err));
 });
-
-router.post('/search', async (req, res) =>{
-
-});
-
-router.put('/update', async (req, res) => {
+router.put('/', async (req, res) => {
     let flight = await updateFlight(req.body);
      res.json(flight);
 })

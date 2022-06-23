@@ -1,10 +1,11 @@
-import { Layout } from 'antd';
+import { Layout, Card, Button } from 'antd';
 import CompanyHead from '../components/CompanyHead';
 import SiderMenu from '../components/siderMenu/SiderMenu';
 import React, {useEffect, useState} from 'react'
 import FlightCard from '../components/DisplayFlight/DisplayFlight';
-import getFlights from '../components/searchTab/CardContainer';
+import getFlights from '../components/searchTab/getFlights';
 const { Header, Footer, Content } = Layout;
+
 
 
 const StructuredLayout = () => {
@@ -12,18 +13,25 @@ const StructuredLayout = () => {
     const [content, setContent] = useState('search');
     const [data, setData] = useState('');
 
+    //Click to select sideMenu option
     function handleClick(e) {
         setContent(e.key);
     }
 
     const getFlightData = async (d) => {
         const getData = await d().then((e) => e);
-        setData(getData);
-        console.log(data)
+        setData(() => getData);
+    }
+
+    const display = () => {
+        console.log(content);
     }
 
     useEffect(() =>{
-        }, [content,data]);
+        getFlightData(getFlights);
+        display();
+
+        },[content]);
 
     return(
         <><Layout style={{height: '100vh'}}>
@@ -31,15 +39,38 @@ const StructuredLayout = () => {
                 <CompanyHead/>
             </Header>
             <Layout hasSider>
-                <button onClick={() => getFlightData(getFlights)}></button>
 
-                <SiderMenu handleClick={[handleClick]}/>
+                <SiderMenu handleClick={handleClick}/>
                 <Layout>
-                    
                     <Content className="site-layout-background">
-
-                        {content === 'search'?<div><FlightCard flightNumber="1" arrivalAirport="DEN" departAirport="MIA"/><p>{data}</p></div>:<><p>Search</p></> }
+                        <FlightCard />
                         
+                            {/* {Object.entries(data).map((d,key)=>{
+                                //Map over flight data
+                                //TODO: Create structure for a card container
+                                //
+                                let fData = d[1];
+                                return(
+                                    <Card id='key'
+                                        title={`Flight Number: ${fData.flightNumber}`}
+                                        style={{
+                                            width: 300,
+                                        }}
+                                    >
+                                            <div className='departInfo'>
+                                                <h2>{`Departing: ${fData.departAirport}`}</h2>
+                                                <p>{`Date: ${fData.departDate}`}</p>
+                                            </div>
+                                            <div className='ArrivingInfo'>
+                                            <h2>{`Arrival: ${fData.arriveAirport}`}</h2>
+                                                <p>{`Date: ${fData.arriveDate}`}</p>
+                                            </div>
+                                            <Button type="primary">Modify Flight</Button>
+                                    </Card>
+                                )
+                            })} */}
+                        <p>content</p>
+
                         </Content>
                         <Footer style={{ height: '2vh',
                         textAlign: 'center'}}>Footer</Footer>

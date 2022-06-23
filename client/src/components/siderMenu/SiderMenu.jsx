@@ -33,7 +33,7 @@
 
 
 
- const SiderMenu = ( {handleClick}) => {
+ const SiderMenu = ( {handleClick} ) => {
     return (
           <Sider className="site-layout-background"
           

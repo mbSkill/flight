@@ -1,7 +1,5 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
 
-const baseURL= process.env.NODE_URI;
 
 export default function getFlights()  { 
     let data;
