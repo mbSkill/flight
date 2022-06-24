@@ -1,3 +1,4 @@
+const { default: mongoose } = require('mongoose');
 const Flight = require('../models/flight.model');
 /**
  * All flight routes travel through here. 
@@ -26,10 +27,13 @@ const createFlight = async ({flightNumber, departDate, arriveDate, arriveAirport
     
 }
 
-const updateFlight =  async (flight) => {
+const updateFlight =  async (_flight) => {
    //Need to validate the flight perams to ensure data is formatted/correct.
    //Might need to move functionality to its own file. Keep controller small if possible.
-    return await Flight.findOneAndUpdate(flight._id, flight);
+   let flight = await Flight.findById(_flight._id);
+    Object.assign(flight,_flight)
+
+    return await flight.save();
 }
 
 const findAllFlights = () => {
@@ -37,8 +41,8 @@ const findAllFlights = () => {
     return flights;
 }
 
-const findOne = (id) => {
-    return Flight.findOne(id);
+const findById = (id) => {
+    return Flight.findById(id);
 }
 
-module.exports =  { createFlight, findAllFlights, updateFlight, findOne };
+module.exports =  { createFlight, findAllFlights, updateFlight, findById };

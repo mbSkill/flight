@@ -11,14 +11,12 @@ const CardGroup = styled.div`
     justify-content: space-between;
 `;
 
-
 export function FlightCard() {
     const flights = useSelector(selectFlightData);
     const dispatch = useDispatch();
     if (!flights) return;
     return (
         <>
-            <Button onClick={() =>dispatch(update)}>click for updates</Button>
             {flights.map((flight,key) => (
              <Card key={key}
             title={`Flight Number: ${flight.flightNumber}`}

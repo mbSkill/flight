@@ -12,6 +12,9 @@
 
 /**
  * This will be a one way flight btw
+ * 
+ * TODO: Auto-increment flight number with mongoose package below
+ * https://github.com/ramiel/mongoose-sequence
  */
 
 const mongoose = require('mongoose');
