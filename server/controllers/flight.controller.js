@@ -1,5 +1,6 @@
 const { default: mongoose } = require('mongoose');
 const Flight = require('../models/flight.model');
+const joi = require('../validators/flightModelValidator');
 /**
  * All flight routes travel through here. 
  * Keep very little logic operations here. 
@@ -20,7 +21,7 @@ const createFlight = async ({flightNumber, departDate, arriveDate, arriveAirport
    let error;
    try{
     await flight.save();
-    return  flight._id;
+    return flight;
     }catch(err){
         throw {status:400, message: err};
     }
@@ -30,11 +31,19 @@ const createFlight = async ({flightNumber, departDate, arriveDate, arriveAirport
 const updateFlight =  async (_flight) => {
    //Need to validate the flight perams to ensure data is formatted/correct.
    //Might need to move functionality to its own file. Keep controller small if possible.
-   let flight = await Flight.findById(_flight._id);
-    Object.assign(flight,_flight)
+   const {error, value} = joi.validate(_flight);
+   if(error){
+    return error;
+    console.log(error)
+   }else{
+        let flight = await Flight.findById(_flight._id);
+            Object.assign(flight,_flight)
 
-    return await flight.save();
+            return await flight.save();
+   }
 }
+
+
 
 const findAllFlights = () => {
     let flights = Flight.find();

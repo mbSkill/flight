@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { Error } = require('mongoose');
 const {findAllFlights, createFlight, updateFlight, findOne} 
     = require('../controllers/flight.controller');
 const { findById } = require('../models/flight.model');
@@ -11,14 +12,27 @@ router.get('/', async (req, res) =>{
 });
 
 router.post('/', async (req, res) => {
-        let flight = req;
-        await createFlight(flight.body)
-       .then(res.json())    
-        .catch(err => console.log(err));
+        let flight;
+        let {error, value} = joi.validate(req.body);
+        if(error){
+            res.status(400)
+            res.json(error);
+        }else{
+            try{
+                flight = await createFlight(req.body)
+            }catch(error){
+                res.status(400)
+                flight = error;
+            }
+                res.json(flight);
+        }
+        
 });
-router.use(validateMiddleware).patch('/', async (req, res) => {
+
+router.patch('/', async (req, res) => {
     let flight = await updateFlight(req.body);
-     return res.json(flight)
+
+         return res.json(flight);
 })
 
 
