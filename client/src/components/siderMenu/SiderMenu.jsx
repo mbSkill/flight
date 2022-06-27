@@ -5,10 +5,13 @@
  import {
     DesktopOutlined,
     ContainerOutlined,
+    PlusCircleOutlined,
     PieChartOutlined,
   } from '@ant-design/icons';
-  import { Layout, Menu } from 'antd';
-  const {Sider} = Layout
+  import { Layout, Menu, Button } from 'antd';
+  import ModalForm from '../Modal/flightModalForm.jsx';
+  const {Sider} = Layout;
+  
 
   // Use getItem to fetch the list of menu items to be displayed. 
   function getItem(label, key, icon, children, type) {
@@ -24,9 +27,9 @@
   // mock data to store menu items. 
   // This will hold Search, Inprogress, Future, Templates
   const items = [
-    getItem('Search', 'search', <PieChartOutlined />),
-    getItem('Templates', 'templates', <DesktopOutlined />),
-    getItem('Option 3', '3', <ContainerOutlined />),
+    getItem(<Button type='primary'>Search</Button>, 'search', <PieChartOutlined />),
+    getItem(<ModalForm>Add Flight</ModalForm>, 'add_Flight', <PlusCircleOutlined />),
+    getItem(<Button type='primary'>Templates</Button>, 'templates', <DesktopOutlined />),
   ];
 
   

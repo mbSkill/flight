@@ -17,11 +17,12 @@ router.post('/', async (req, res) => {
         if(error){
             res.status(400)
             res.json(error);
+            console.log(error);
         }else{
             try{
                 flight = await createFlight(req.body)
             }catch(error){
-                res.status(400)
+                res.status(401)
                 flight = error;
             }
                 res.json(flight);
