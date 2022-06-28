@@ -4,8 +4,8 @@ import './index.css';
 import App from './App';
 import { Provider } from 'react-redux';
 import store from './app/store'
-import { fetchFlights } from './components/DisplayFlight/flightSlice';
 import reportWebVitals from './reportWebVitals';
+import { fetchFlights, update } from './app/slice/flightSlice';
 store.dispatch(fetchFlights)
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

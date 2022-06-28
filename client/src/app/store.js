@@ -1,11 +1,13 @@
 import { configureStore} from '@reduxjs/toolkit';
-import flightReducer from '../components/DisplayFlight/flightSlice';
+import { flightSlice } from './slice/flightSlice';
+import { singleFlightSlice } from './slice/singleFlightSlice';
+import rootReducer from './slice/';
 
-
-
-export default configureStore({
+const store = configureStore({
     reducer: {
-        flightData: flightReducer,
-    },
-   
-})
+        flightdata: flightSlice.reducer,
+        singleFlightData: singleFlightSlice.reducer
+    }
+  });
+
+export default store;

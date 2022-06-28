@@ -50,8 +50,8 @@ const findAllFlights = () => {
     return flights;
 }
 
-const findById = (id) => {
-    return Flight.findById(id);
+const findById =  async (id) => {
+    return await Flight.findById(id);
 }
 
 module.exports =  { createFlight, findAllFlights, updateFlight, findById };

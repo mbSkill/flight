@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
-import '../searchTab/getFlights'
-import getFlights from '../searchTab/getFlights';
+import '../../components/searchTab/getFlights'
+import getFlights from '../../components/searchTab/getFlights';
 
 export const flightSlice = createSlice({
     name: 'flightdata',
@@ -20,13 +20,13 @@ export const flightSlice = createSlice({
     },
 })
 
-export const {update} = flightSlice.actions
+export const {update} = flightSlice.actions;
 
-export const selectFlightData = (state) => state.flightData.value
+export const selectFlightData = (state) => state.flightdata.value;
 
-export default flightSlice.reducer
+export default flightSlice.reducer;
 
 export async function fetchFlights(dispatch, getState) {
-    const response = await getFlights()
+    const response = await getFlights();
     dispatch(update(response));
 }

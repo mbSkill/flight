@@ -1,8 +1,7 @@
 const router = require('express').Router();
 const { Error } = require('mongoose');
-const {findAllFlights, createFlight, updateFlight, findOne} 
+const {findAllFlights, createFlight, updateFlight, findById} 
     = require('../controllers/flight.controller');
-const { findById } = require('../models/flight.model');
 const joi = require('../validators/flightModelValidator');
 const validateMiddleware = require('./middleware');
 
@@ -10,6 +9,11 @@ router.get('/', async (req, res) =>{
     const flights = await findAllFlights();
     res.json(flights);
 });
+
+router.get('/:id', async (req, res)=>{
+    let flight = await findById(req.params.id);
+    res.json(flight);
+})
 
 router.post('/', async (req, res) => {
         let flight;
