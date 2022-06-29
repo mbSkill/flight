@@ -11,9 +11,10 @@ router.get('/', async (req, res) =>{
 });
 
 router.get('/:id', async (req, res)=>{
+    console.log(req.params)
     let flight = await findById(req.params.id);
     res.json(flight);
-})
+}) 
 
 router.post('/', async (req, res) => {
         let flight;
@@ -31,7 +32,7 @@ router.post('/', async (req, res) => {
             }
                 res.json(flight);
         }
-        
+     
 });
 
 router.patch('/', async (req, res) => {

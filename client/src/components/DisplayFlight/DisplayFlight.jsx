@@ -1,10 +1,9 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectFlightData, update } from '../../app/slice/flightSlice';
-import { fetchSingle, selectSingleFlightData, setSingle } from '../../app/slice/singleFlightSlice';
-import { Button, Card, Space } from 'antd';
+import { useSelector } from 'react-redux';
+import { selectFlightData } from '../../app/slice/flightSlice';
+import { Card, Space } from 'antd';
 import styled from "styled-components";
-import { getOneFlightById } from  '../searchTab/getOneFlight';
+import UpdateFlightModal from '../Modal/UpdateFlightModal';
 
 
 const CardGroup = styled.div`
@@ -14,26 +13,11 @@ const CardGroup = styled.div`
 `;
 
 export function FlightCard() { 
-    const dispatch = useDispatch();
-   
-    // dispatch(fetchSingle());
     const flights = useSelector(selectFlightData);
-    const singleFlight = useSelector(selectSingleFlightData);
-    console.log(singleFlight);
-    const single = getOneFlightById("62acce810a734f66e7f735e2")
-    console.log(single);
     if (!flights) return;
     let arriveISO;
     let departISO;
 
-    const handleClick = async (e) =>{
-        // console.log(singleFlight)
-        // console.log(singleFlight)
-        dispatch(setSingle(singleFlight)) 
-        
-        
-        console.log(singleFlight)
-    }
     return (
             <Space wrap align='center'
                 style={{
@@ -41,7 +25,9 @@ export function FlightCard() {
                     justifyContent: 'space-evenly',
                     padding: '3px',
                     overflow: 'scroll',
-                    scrollbarWidth: 'none'}}>
+                    scrollbarWidth: 'none'}}
+                >
+                   
 
                 {flights.map((flight,key) => (
                 <Card key={key}
@@ -68,7 +54,7 @@ export function FlightCard() {
                         </div>
                     </CardGroup>
                     
-                    <Button type="primary" onClick={()=>handleClick(flight._id)}>Modify Flight</Button>
+                     <UpdateFlightModal flightId={`${flight._id}`}/>
                 </Card>
                 ))}
             </Space>
@@ -80,3 +66,4 @@ export function FlightCard() {
 
 
 export default FlightCard;
+export {CardGroup};

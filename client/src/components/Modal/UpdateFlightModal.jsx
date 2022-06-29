@@ -1,40 +1,93 @@
-import { Button, Modal } from 'antd';
+import React from 'react';
+import { Button, Modal, Form, Input, DatePicker,InputNumber} from 'antd';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSingle, selectSingleFlightData } from '../../app/slice/flightSlice';
+import { getOneFlightById } from  '../searchTab/getOneFlight';
+import { selectSingleFlightData, setSingle } from '../../app/slice/singleFlightSlice';
 
 
-const FlightCard = () =>{
-    <Card
-        title={`Flight Number: ${flight.flightNumber}`}
-        style={{
-            maxWidth: '40em',
-            height: '25em',
-            overflow: 'hidden',
-        }}
+const UpdateFlightCard = ({flight, visible, onCreate, onCancel }) =>{
+  //ISO will be for splitting Date
+  //let departISO, arriveISO;
+  const [form] = Form.useForm();
+  return(
+    <Modal
+      visible={visible}
+      title="Update Flight"
+      okText="Update"
+      cancelText="Cancel"
+      onCancel={onCancel}
+      onOk={() => {
+        form
+          .validateFields()
+          .then((values) => {
+            form.resetFields();
+            onCreate(values);
+          })
+          .catch((info) => {
+            console.log('Validate Failed:', info);
+          });
+      }}
+    >
+
+    <Form
+    form={form}
+    layout="vertical"
+    name="form_in_modal"
+    >
+  
+      <Form.Item
+        name="departAirport"
+        label="Departing Airport"
+      >
+        <Input placeholder={`${flight.departAirport}`}/>
+      </Form.Item>
+
+      <Form.Item
+        name="arriveAirport"
+        label="Arriving Airport"
+      >
+        <Input placeholder={`${flight.arriveAirport}`}/>
+      </Form.Item>
+
+      <Form.Item 
+      name="departDate"
+      label="Departing Date"
+      >
+        <DatePicker showTime placeholder={`${new Date(flight.departAirport)}`}/>
+      </Form.Item>
+
+      <Form.Item 
+      name="arriveDate"
+      label="Arriving Date"
         >
-        <CardGroup>
-            <div className='departInfo'>
-                <h2>{`Departing:`}</h2>
-                <h4>{`${flight.departAirport}`}</h4>
-                <p>{`Date: ${(departISO = new Date(flight.departAirport)).toDateString()}`}</p>
-                <p>{`Time: ${departISO.getDate()}: ${departISO.getHours()}`}</p>
-            </div>
-            <div className='ArrivingInfo'>
-            <h2>{`Arrival:`}</h2>
-                <h4>{`${flight.arriveAirport}`}</h4>
-                <p>{`Date: ${ (arriveISO = new Date(flight.arriveDate)).toDateString()}`}</p>
-                <p>{`Time: ${arriveISO.getHours()}: ${arriveISO.getMinutes()}`}</p>
-    
-            </div>
-        </CardGroup>
-        
-        <Button type="primary" onClick={()=>handleClick(flight._id)}>Modify Flight</Button>
-    </Card>
+        <DatePicker showTime placeholder={`new Date(flight.arriveAirport))`}/>
+      </Form.Item>
+
+      <Form.Item 
+      name="occupantCapacity" 
+      label="Occupant Capacity"
+      >
+      <InputNumber min={1} max={200} placeholder={`${flight.occupantCapacity}`}/>
+      </Form.Item>
+
+      <Form.Item 
+      name="occupantCount" 
+      label="Occupant Count"
+      >
+      <InputNumber min={1} max={200} placeholder={`${flight.occupantCount}`}/>
+      </Form.Item>
+
+      <Form.Item name="modifier" className="collection-create-form_last-form-item">
+      
+      </Form.Item>
+    </Form>
+  </Modal>
+  )
 }
 
 
-const UpdateFlightModal = () => {
+const UpdateFlightModal = ({flightId}) => {
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [modalText, setModalText] = useState('Content of the modal');
@@ -43,7 +96,9 @@ const UpdateFlightModal = () => {
 
 
 
-  const showModal = () => {
+  const showModal = async () => {
+    let f = await getOneFlightById(flightId)
+    dispatch(setSingle(f));
     setVisible(true);
   };
 
@@ -54,27 +109,24 @@ const UpdateFlightModal = () => {
       setVisible(false);
       setConfirmLoading(false);
     }, 2000);
-  };
 
-  const handleCancel = () => {
-    console.log('Clicked cancel button');
-    setVisible(false);
   };
 
   return (
     <>
-      <Button type="primary" onClick={showModal}>
+      <Button type="primary" onClick={() => showModal()}>
         Open Modal with async logic
       </Button>
-      <Modal
-        title="Title"
-        visible={visible}
-        onOk={handleOk}
-        confirmLoading={confirmLoading}
-        onCancel={handleCancel}
-      >
-        <p>{modalText}</p>
-      </Modal>
+          {visible && <UpdateFlightCard 
+            flight={flight.value}
+            visible={visible}
+            onOk={() => handleOk()}
+            confirmLoading={confirmLoading}
+            onCancel={() => {
+              setVisible(false);
+            }}
+            />
+          }
     </>
   );
 };
