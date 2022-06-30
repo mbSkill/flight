@@ -42,13 +42,13 @@ export function FlightCard() {
                         <div className='departInfo'>
                             <h2>{`Departing:`}</h2>
                             <h4>{`${flight.departAirport}`}</h4>
-                            <p>{`Date: ${(departISO = new Date(flight.departAirport)).toDateString()}`}</p>
-                            <p>{`Time: ${departISO.getDate()}: ${departISO.getHours()}`}</p>
+                            <p>{`Date: ${(departISO = new Date(flight.departDate)).toDateString()}`}</p>
+                            <p>{`Time: ${departISO.getHours()}: ${departISO.getMinutes()}`}</p>
                         </div>
                         <div className='ArrivingInfo'>
                         <h2>{`Arrival:`}</h2>
                             <h4>{`${flight.arriveAirport}`}</h4>
-                            <p>{`Date: ${ (arriveISO = new Date(flight.arriveDate)).toDateString()}`}</p>
+                            <p>{`Date: ${(arriveISO = new Date(flight.arriveDate)).toDateString()}`}</p>
                             <p>{`Time: ${arriveISO.getHours()}: ${arriveISO.getMinutes()}`}</p>
                 
                         </div>

@@ -8,7 +8,7 @@ const CompanyHead = () => (
         className="site-page-header"
         ghost='true'
         // onBack={() => null}
-        title="Inception Flights"
+        title="Weird Flights"
         subTitle="Management Portal"
         color="white"
     />

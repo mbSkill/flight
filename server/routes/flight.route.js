@@ -1,9 +1,8 @@
 const router = require('express').Router();
 const { Error } = require('mongoose');
-const {findAllFlights, createFlight, updateFlight, findById} 
+const {findAllFlights, createFlight, updateFlight, findById, deleteById} 
     = require('../controllers/flight.controller');
 const joi = require('../validators/flightModelValidator');
-const validateMiddleware = require('./middleware');
 
 router.get('/', async (req, res) =>{
     const flights = await findAllFlights();
@@ -31,7 +30,7 @@ router.post('/', async (req, res) => {
                 flight = error;
             }
                 res.json(flight);
-        }
+        } 
      
 });
 
@@ -39,6 +38,11 @@ router.patch('/', async (req, res) => {
     let flight = await updateFlight(req.body);
 
          return res.json(flight);
+})
+
+router.delete('/:id', async (req, res) => {
+    let flight = await deleteById(req.params.id);
+    return res. json(flight);
 })
 
 

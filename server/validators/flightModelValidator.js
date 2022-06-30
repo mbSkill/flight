@@ -9,7 +9,7 @@ const Joi = require('Joi');
     occupantCount: Joi.number().integer().max(200).min(0),
     _id: Joi.allow(),
     flightNumber: Joi.allow()
-    });
+    });  
 
 
 
