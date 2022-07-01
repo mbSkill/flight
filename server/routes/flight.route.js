@@ -35,14 +35,20 @@ router.post('/', async (req, res) => {
 });
 
 router.patch('/', async (req, res) => {
-    let flight = await updateFlight(req.body);
-
-         return res.json(flight);
+    console.log(req.body)
+    let flight = await updateFlight(req.body)
+        .catch((error) =>{
+            res.status(400).json(error).send();
+        })
+        .then((data) =>{
+            return res.json(data);
+            console.log(flight);
+        });
 })
 
 router.delete('/:id', async (req, res) => {
     let flight = await deleteById(req.params.id);
-    return res. json(flight);
+    return res.json(flight);
 })
 
 

@@ -36,8 +36,10 @@ const updateFlight =  async (_flight) => {
     return error;
     console.log(error)
    }else {
+        console.log(_flight)
         let flight = await Flight.findById(_flight._id);
             Object.assign(flight,_flight)
+            console.log(flight);
 
             return await flight.save();
    }

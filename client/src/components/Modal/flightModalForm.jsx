@@ -61,6 +61,10 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
               required: true,
               message: 'Please input the Departing Airport IATA abbreviation',
             },
+            {
+              len: 3,
+              message: 'IATA must be 3 characters'
+            }
           ]}
         >
           <Input />
@@ -74,6 +78,10 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
               required: true,
               message: 'Please input the Arriving Airport IATA abbreviation',
             },
+            {
+              len: 3,
+              message: 'IATA must be 3 characters'
+            }
           ]}
         >
           <Input />
@@ -109,7 +117,11 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
           {
             required: true,
             message: 'Please input the passenger capacity for flight',
-          },]}>
+          },
+          {
+            max: 200,
+            message: 'Flight capacity is at most 200. Enter a value of 200 or less'
+          }]}>
         <InputNumber min={1} max={200} />
         </Form.Item>
 
@@ -120,7 +132,11 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
           {
             required: true,
             message: 'Please input the number of passengers on flight',
-          },]}>
+          },
+          {
+            max: 200,
+            message: 'Flight capacity is at most 200. Enter a value of 200 or less'
+          }]}>
         <InputNumber min={1} max={200}/>
         </Form.Item>
 
@@ -136,7 +152,7 @@ const ModalForm = () => {
   const [visible, setVisible] = useState(false);
 
   const onCreate = (values) => {
-    console.log('Received values of form: ', values.arriveDate._d);
+    console.log('Received values of form: ', values);
     values.arriveDate = values.arriveDate._d;
     values.departDate = values.departDate._d;
     delete values.modifier;
