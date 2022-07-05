@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
             try{
                 flight = await createFlight(req.body)
             }catch(error){
-                res.status(401)
+                res.status(400)
                 flight = error;
             }
                 res.json(flight);

@@ -3,15 +3,16 @@ import CompanyHead from '../components/CompanyHead';
 import SiderMenu from '../components/siderMenu/SiderMenu';
 import React, {useEffect, useState} from 'react'
 import FlightCard from '../components/DisplayFlight/DisplayFlight';
-import SearchForm from '../components/Modal/searchForm';
+import { useSelector } from 'react-redux';
 const { Header, Footer, Content } = Layout;
 
 
 
 const StructuredLayout = () => {
 
-    const [content, setContent] = useState('search');
+    // const [content, setContent] = useState('search');
     const [filter, setFilter] = useState(false);
+    const flights = useSelector((state) => state.flightdata.value);
 
     //Click to select sideMenu option
     function handleClick(e) {
@@ -20,7 +21,7 @@ const StructuredLayout = () => {
 
     useEffect(() =>{
 
-        },[content, filter]);
+        },[filter, flights]);
 
     return(
         <><Layout style={{height: '100vh'}}>
@@ -37,7 +38,6 @@ const StructuredLayout = () => {
                         display: 'flex',
                         flexDirection: 'column',
                     }}>
-                        {filter && <SearchForm/>}
                         <FlightCard />
                     </Content>
 

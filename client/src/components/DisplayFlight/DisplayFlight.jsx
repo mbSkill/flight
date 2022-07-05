@@ -1,9 +1,10 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { selectFlightData } from '../../app/slice/flightSlice';
-import { Card, Col, Row, Space } from 'antd';
+import { useSelector, useDispatch } from 'react-redux';
+import './flight.css';
+import { fetchFlights } from '../../app/slice/flightSlice';
+import { Button, Card, Col, Row } from 'antd';
 import styled from "styled-components";
 import UpdateFlightModal from '../Modal/UpdateFlightModal';
+import deleteFlightById from '../searchTab/deleteFlight';
 
 
 const CardGroup = styled.div`
@@ -13,28 +14,39 @@ const CardGroup = styled.div`
 `;
 
 export function FlightCard() { 
-    const flights = useSelector(selectFlightData);
+    let flights = useSelector(
+        (state) => state.flightdata.value);
+    
+    const dispatch = useDispatch();
+    
     if (!flights) return;
     let arriveISO;
     let departISO;
+        
+    const onDelete = (id) => {
+        console.log(flights)
+        deleteFlightById(id);
+        fetchFlights(dispatch);
+    }
 
     return (
            
         <div style={{
             overflow: "scroll",
             overflowX: "hidden",
-            padding: "7px"
+            padding: "15px"
         }}
         > 
             <Row gutter={[32, 8]} >       
             {flights.map((flight,key) => (
                 <Col key={key} xs={24} sm={24} md={12} lg={8} xl={6} >
-                    <Card 
+                    <Card className='card'
                     title={`Flight Number: ${flight.flightNumber}`}
                     style={{
                         maxWidth: '40em',
                         height: '25em',
                         overflow: 'hidden',
+                        
                     }}
                     >
                         <CardGroup>
@@ -52,8 +64,11 @@ export function FlightCard() {
 
                             </div>
                         </CardGroup>
-
-                        <UpdateFlightModal flightId={`${flight._id}`}/>
+                        <div className='buttonGroup'>
+                            <UpdateFlightModal flightId={`${flight._id}`}/>
+                            <Button type='primary' onClick={() => onDelete(flight._id)} danger>Delete</Button>
+                        </div>
+                        
                     </Card>
                 </Col>
             ))}

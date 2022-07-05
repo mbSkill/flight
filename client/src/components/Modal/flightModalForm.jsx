@@ -1,7 +1,9 @@
 import { Button, Form, Input,
-         Modal, Radio, DatePicker,
-         TimePicker,InputNumber } from 'antd';
+         Modal, DatePicker,
+         InputNumber } from 'antd';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchFlights } from '../../app/slice/flightSlice';
 const postFlight =  require('../searchTab/PostFlight');
 
 
@@ -11,6 +13,7 @@ const postFlight =  require('../searchTab/PostFlight');
 // }
 
 const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
+  
   const [form] = Form.useForm();
   return (
     <Modal
@@ -117,10 +120,6 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
           {
             required: true,
             message: 'Please input the passenger capacity for flight',
-          },
-          {
-            max: 200,
-            message: 'Flight capacity is at most 200. Enter a value of 200 or less'
           }]}>
         <InputNumber min={1} max={200} />
         </Form.Item>
@@ -132,10 +131,6 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
           {
             required: true,
             message: 'Please input the number of passengers on flight',
-          },
-          {
-            max: 200,
-            message: 'Flight capacity is at most 200. Enter a value of 200 or less'
           }]}>
         <InputNumber min={1} max={200}/>
         </Form.Item>
@@ -150,6 +145,7 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
 
 const ModalForm = () => {
   const [visible, setVisible] = useState(false);
+  const dispatch = useDispatch();
 
   const onCreate = (values) => {
     console.log('Received values of form: ', values);
@@ -158,7 +154,7 @@ const ModalForm = () => {
     delete values.modifier;
     console.log(values)
     postFlight.default(values);
-
+    fetchFlights(dispatch);
     setVisible(false);
   };
 
@@ -170,7 +166,7 @@ const ModalForm = () => {
           setVisible(true);
         }}
       >
-        New Collection
+        New Flight
       </Button>
       <CollectionCreateForm
         visible={visible}

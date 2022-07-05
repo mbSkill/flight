@@ -47,7 +47,6 @@ const UpdateFlightCard = ({flight, visible, onCreate, onCancel }) =>{
     <Form
     form={form}
     layout="vertical"
-    name="form_in_modal"
 
   //TODO: Make dates consistent as of now some dates break form. 
     initialValues = {{
@@ -63,6 +62,7 @@ const UpdateFlightCard = ({flight, visible, onCreate, onCancel }) =>{
       <Form.Item
         name="departAirport"
         label="Departing Airport"
+        noStyle
       >
         <Input />
       </Form.Item>

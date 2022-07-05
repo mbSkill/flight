@@ -1,0 +1,20 @@
+{
+  "name": "flightapp",
+  "version": "1.0.0",
+  "description": "Root Flight application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"cd server && npm start\" \" cd client && npm start \""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mbSkill/flight.git"
+  },
+  "author": "Matt Bostic",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mbSkill/flight/issues"
+  },
+  "homepage": "https://github.com/mbSkill/flight#readme"
+}

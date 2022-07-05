@@ -3,12 +3,9 @@
  */
 
  import {
-    DesktopOutlined,
-    ContainerOutlined,
     PlusCircleOutlined,
-    PieChartOutlined,
   } from '@ant-design/icons';
-  import { Layout, Menu, Button } from 'antd';
+  import { Layout, Menu} from 'antd';
   import ModalForm from '../Modal/flightModalForm.jsx';
   const {Sider} = Layout;
   
@@ -27,9 +24,8 @@
   // mock data to store menu items. 
   // This will hold Search, Inprogress, Future, Templates
   const items = [
-    getItem(<Button type='primary'>Search</Button>, 'search', <PieChartOutlined />),
+    // getItem(<Button type='primary'>Search</Button>, 'search', <PieChartOutlined />),
     getItem(<ModalForm>Add Flight</ModalForm>, 'add_Flight', <PlusCircleOutlined />),
-    getItem(<Button type='primary'>Templates</Button>, 'templates', <DesktopOutlined />),
   ];
 
   

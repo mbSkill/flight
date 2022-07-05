@@ -26,7 +26,7 @@ export const selectFlightData = (state) => state.flightdata.value;
 
 export default flightSlice.reducer;
 
-export async function fetchFlights(dispatch, getState) {
+export async function fetchFlights(dispatch) {
     const response = await getFlights();
     dispatch(update(response));
 }
