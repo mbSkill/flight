@@ -42,9 +42,9 @@ const StructuredLayout = () => {
                     </Content>
 
                     <Footer 
-                    style={{ height: '4vh',
+                    style={{ height: '2vh',
                     textAlign: 'center'}}>
-                        Footer
+                        <p>Matt Bostic 2022</p>
                     </Footer>
 
                     </Layout>

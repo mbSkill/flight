@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import './flight.css';
 import { fetchFlights } from '../../app/slice/flightSlice';
-import { Button, Card, Col, Row } from 'antd';
+import { Button, Card, Col, Row, Progress } from 'antd';
 import styled from "styled-components";
 import UpdateFlightModal from '../Modal/UpdateFlightModal';
 import deleteFlightById from '../searchTab/deleteFlight';
@@ -29,6 +29,11 @@ export function FlightCard() {
         fetchFlights(dispatch);
     }
 
+    const calculateProgress = (cap, count) => { 
+        return Math.round((count/cap)*100);
+        
+    }
+
     return (
            
         <div style={{
@@ -53,17 +58,27 @@ export function FlightCard() {
                             <div className='departInfo'>
                                 <h2>{`Departing:`}</h2>
                                 <h4>{`${flight.departAirport}`}</h4>
-                                <p>{`Date: ${(departISO = new Date(flight.departDate)).toDateString()}`}</p>
-                                <p>{`Time: ${departISO.getHours()}: ${departISO.getMinutes()}`}</p>
+                                <label for="dDate">Date:</label>
+                                <p id='dDate'>{`${(departISO = new Date(flight.departDate)).toDateString()}`}</p>
+                                <label for="dTime">Time:</label>
+                                <p id='dTime'>{`${departISO.getHours()}: ${departISO.getMinutes()}`}</p>
                             </div>
                             <div className='ArrivingInfo'>
                             <h2>{`Arrival:`}</h2>
                                 <h4>{`${flight.arriveAirport}`}</h4>
-                                <p>{`Date: ${(arriveISO = new Date(flight.arriveDate)).toDateString()}`}</p>
-                                <p>{`Time: ${arriveISO.getHours()}: ${arriveISO.getMinutes()}`}</p>
-
+                                <label for="aDate">Date:</label>
+                                <p id='aDate'>{`${(arriveISO = new Date(flight.arriveDate)).toDateString()}`}</p>
+                                <label for="aTime">Time:</label>
+                                <p id='aTime'>{`${arriveISO.getHours()}: ${arriveISO.getMinutes()}`}</p>
                             </div>
-                        </CardGroup>
+                        </CardGroup> 
+                        <div className='occupant'>
+                            <label for="occupantProgress">{`Seats Reserved: ${flight.occupantCount} of ${flight.occupantCapacity}`}</label>
+                            <Progress
+                             id='occupantProgress' 
+                             percent={calculateProgress(flight.occupantCapacity,flight.occupantCount)} 
+                             size="small" />
+                        </div>
                         <div className='buttonGroup'>
                             <UpdateFlightModal flightId={`${flight._id}`}/>
                             <Button type='primary' onClick={() => onDelete(flight._id)} danger>Delete</Button>

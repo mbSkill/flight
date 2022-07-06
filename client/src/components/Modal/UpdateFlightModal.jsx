@@ -28,12 +28,10 @@ const UpdateFlightCard = ({flight, visible, onCreate, onCancel }) =>{
       cancelText="Cancel"
       onCancel={onCancel}
       onOk={() => {
-        console.log(":::::::")
         form
           .validateFields()
           .then((values) => {
             values._id = flight._id;
-            console.log(values);
             onCreate(values);
             form.resetFields();
             
@@ -62,7 +60,6 @@ const UpdateFlightCard = ({flight, visible, onCreate, onCancel }) =>{
       <Form.Item
         name="departAirport"
         label="Departing Airport"
-        noStyle
       >
         <Input />
       </Form.Item>
