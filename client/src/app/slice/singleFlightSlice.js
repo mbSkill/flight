@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import { getOneFlightById } from '../../components/searchTab/getOneFlight';
+import { getOneFlightById } from '../../http/getOneFlight';
 
 
 export const singleFlightSlice = createSlice({

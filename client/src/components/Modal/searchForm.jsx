@@ -2,7 +2,7 @@ import { Button, Form, Input,
   Modal, Radio, DatePicker,
   TimePicker,InputNumber } from 'antd';
 import { useState } from 'react';
-const postFlight =  require('../searchTab/PostFlight');
+const postFlight =  require('../../http/PostFlight');
 
 
 

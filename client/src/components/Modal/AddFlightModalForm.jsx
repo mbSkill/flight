@@ -4,7 +4,9 @@ import { Button, Form, Input,
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchFlights } from '../../app/slice/flightSlice';
-const postFlight =  require('../searchTab/PostFlight');
+import moment from 'moment';
+const postFlight =  require('../../http/PostFlight');
+
 
 
 
@@ -108,7 +110,25 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
           {
             required: true,
             message: 'Please input the Date and Time of arrival',
-          },]}
+          },
+
+          ({ getFieldValue }) => ({
+            validator: (_, value ) => 
+            (moment(value).isAfter(Date.now()-30000)) ?
+              Promise.resolve() :
+              Promise.reject(
+                new Error('Arrival time may not be before current time/date')
+              )
+          }),
+  
+          ({ getFieldValue }) => ({
+            validator: (_, value ) => 
+            (moment(value).isAfter(getFieldValue('departDate'))) ?
+              Promise.resolve() :
+              Promise.reject(
+                new Error('Arrival date/time must be after departure date/time')
+              )
+          })]}
           >
           <DatePicker showTime />
         </Form.Item>
@@ -127,11 +147,21 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
         <Form.Item 
         name="occupantCount" 
         label="Occupant Count"
+        hasFeedback
+        dependencies={['occupantCapacity']}
         rules={[
-          {
-            required: true,
-            message: 'Please input the number of passengers on flight',
-          }]}>
+          ({ getFieldValue }) => ({
+            validator: (_, value) =>
+              (value <= getFieldValue('occupantCapacity')) ?
+                  Promise.resolve() :
+                  Promise.reject(
+                    new Error('Occupant Count must be less than occupant Capacity'))
+            
+          }),
+            ({
+              required: true,
+              message: 'Please input the number of passengers on flight',
+            })]}>
         <InputNumber min={1} max={200}/>
         </Form.Item>
 
@@ -147,14 +177,12 @@ const ModalForm = () => {
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
 
-  const onCreate = (values) => {
-    console.log('Received values of form: ', values);
+  const onCreate =  async (values) => {
     values.arriveDate = values.arriveDate._d;
     values.departDate = values.departDate._d;
     delete values.modifier;
-    console.log(values)
     postFlight.default(values);
-    fetchFlights(dispatch);
+    await fetchFlights(dispatch);
     setVisible(false);
   };
 

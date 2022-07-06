@@ -6,7 +6,7 @@
     PlusCircleOutlined,
   } from '@ant-design/icons';
   import { Layout, Menu} from 'antd';
-  import ModalForm from '../Modal/flightModalForm.jsx';
+  import ModalForm from '../Modal/AddFlightModalForm.jsx';
   const {Sider} = Layout;
   
 

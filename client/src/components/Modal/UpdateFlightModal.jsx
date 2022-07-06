@@ -3,9 +3,9 @@ import moment from 'moment';
 import { Button, Modal, Form, Input, DatePicker,InputNumber} from 'antd';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getOneFlightById } from  '../searchTab/getOneFlight';
+import { getOneFlightById } from  '../../http/getOneFlight';
 import { selectSingleFlightData, setSingle } from '../../app/slice/singleFlightSlice';
-import updateFlight from '../searchTab/updateFlight';
+import updateFlight from '../../http/updateFlight';
 import { selectFlightData } from '../../app/slice/flightSlice';
 
 /**
@@ -45,6 +45,7 @@ const UpdateFlightCard = ({flight, visible, onCreate, onCancel }) =>{
     <Form
     form={form}
     layout="vertical"
+
 
   //TODO: Make dates consistent as of now some dates break form. 
     initialValues = {{

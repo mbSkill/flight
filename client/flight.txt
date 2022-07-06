@@ -1,0 +1,1 @@
+{"flightNumber":{"$numberInt":"12"},"departDate":{"$date":{"$numberLong":"1658525363795"}},"arriveDate":{"$date":{"$numberLong":"1658636967722"}},"departAirport":"GWB","arriveAirport":"BOM","occupantCapacity":{"$numberInt":"100"},"occupantCount":{"$numberInt":"44"},"__v":{"$numberInt":"0"}}

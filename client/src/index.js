@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import store from './app/store'
 import reportWebVitals from './reportWebVitals';
 import { fetchFlights } from './app/slice/flightSlice';
-store.dispatch(fetchFlights)
+store.dispatch(fetchFlights);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

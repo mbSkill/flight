@@ -2,7 +2,7 @@ import { Layout } from 'antd';
 import CompanyHead from '../components/CompanyHead';
 import SiderMenu from '../components/siderMenu/SiderMenu';
 import React, {useEffect, useState} from 'react'
-import FlightCard from '../components/DisplayFlight/DisplayFlight';
+import { FlightCard } from '../components/FlightCards/DisplayFlights';
 import { useSelector } from 'react-redux';
 const { Header, Footer, Content } = Layout;
 
