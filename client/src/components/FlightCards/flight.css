@@ -1,0 +1,16 @@
+.card {
+    transition: 0.5s;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+.card:hover {
+    box-shadow: 0 30px 70px #000;
+    transform: scale3d(1.05, 1.05, 1.05);
+}
+
+.buttonGroup {
+    width:inherit;
+    display: flex;
+    justify-content: space-around;
+}
